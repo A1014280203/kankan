@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/devfeel/dotweb"
-	"github.com/devfeel/middleware/cors"
 	_ "github.com/go-sql-driver/mysql"
 	"strconv"
 	"time"
@@ -26,7 +25,7 @@ func main() {
 	app := dotweb.New()
 	//set debug mode
 	//app.SetDevelopmentMode()
-	option := cors.NewConfig().UseDefault()
+	//option := cors.NewConfig().UseDefault()
 
 	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(49.235.9.27:3306)/weread?charset=utf8")
 	defer db.Close()
@@ -34,7 +33,7 @@ func main() {
 	app.HttpServer.ServerFile("/static/*filepath", "./static/")
 	app.HttpServer.Renderer().SetTemplatePath("./templates/")
 	app.HttpServer.GET("/", IndexView)
-	app.HttpServer.GET("/posts", MorePost).Use(cors.Middleware(option))
+	app.HttpServer.GET("/posts", MorePost)
 	app.HttpServer.GET("/h", func(context dotweb.Context) error {
 		return context.WriteString("Hello World")
 	})
