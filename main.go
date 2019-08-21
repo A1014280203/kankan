@@ -118,10 +118,6 @@ func dbc(followTime uint32) *sql.Rows {
 	return rows
 }
 
-// todo: dbc
-// todo: improve <a> style
-// todo: posts API
-
 /*
 
 index init the end timestamp

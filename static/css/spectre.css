@@ -295,7 +295,7 @@ body {
 }
 
 a {
-  color: lightskyblue;
+  color: black;
   outline: none;
   text-decoration: none;
 }
@@ -309,7 +309,7 @@ a:hover,
 a:active,
 a.active {
   color: deepskyblue;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:visited {
