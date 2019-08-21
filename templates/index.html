@@ -28,7 +28,7 @@
     <div class="container py-2" id="main-content">
         <h4 style="padding-top: 3.8rem">最新文章</h4>
         <div class="container">
-            {{ range .Cards }}
+            {{ range .cards }}
 
             <a class="card my-2 text-dark" href="{{ .DocURL }}">
                 <div class="card-header h5"> {{ .Title }}</div>
@@ -41,10 +41,11 @@
                     <span style="font-size: smaller">{{ .MpName }}</span>
                 </div>
             </a>
+
             {{ end }}
             <!--点击加载-->
-            <div class="flex-centered">
-            <button class="btn" onclick=""><i class="icon icon-downward"></i> 点击加载更多</button>
+            <div class="flex-centered" id="main-end">
+            <button class="btn" id="load-more" onclick="moreCards()" data="{{ .followTime }}"><i class="icon icon-downward"></i> 点击加载更多</button>
             </div>
         </div>
     </div>
@@ -56,5 +57,24 @@
         <div><kbd class="bg-gray text-dark">ICP备XXXXXXXX号</kbd></div>
     </div>
 </footer>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    function moreCards() {
+        let lastTime = $("#load-more").attr("data");
+        $.getJSON("/posts?followTime="+lastTime, function(data) {
+            let cards = data["cards"];
+            let followTime = data["followTime"];
+            cards.forEach(function (card) {
+                let x = "";
+                let part = `<a class="card my-2 text-dark" href="DocURL"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure><span style="font-size: smaller">MpName</span></div></a>`;
+                for (x in card) {
+                    part = part.replace(x, card[x]);
+                }
+                $("#main-end").before(part)
+            });
+            $("#load-more").attr("data", followTime);
+        })
+    }
+</script>
 </body>
 </html>
