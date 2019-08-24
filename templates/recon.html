@@ -3,7 +3,6 @@
 <head>
     <link rel="stylesheet" href="/static/css/spectre.css">
     <link rel="stylesheet" href="/static/css/iconfont.css">
-    <link rel="stylesheet" href="/static/css/spectre-exp.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>考研看看</title>
@@ -18,22 +17,17 @@
             <a href=".." class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
         </section>
         <section class="navbar-section">
-            <form action=".." method="get">
-                <div class="input-group input-inline">
-                    <input class="form-input" name="for-title" type="text" placeholder="文章标题">
-                    <button class="btn input-group-btn" type="submit"><i class="form-icon icon icon-search"></i>
-                    </button>
-                </div>
-            </form>
+            <mark style="font-size: smaller">- 要想走出平凡，<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就要先走入孤独。</mark>
         </section>
     </header>
     <div class="container py-2" id="main-content">
         <ul class="tab tab-block">
-            <li class="tab-item" style="padding-top: 3.8rem"><a href="index.html">最新文章</a></li>
-            <li class="tab-item active" style="padding-top: 3.8rem"><a href="recon.html">推荐公众号</a></li>
+            <li class="tab-item" style="padding-top: 3.8rem"><a href="/">最新文章</a></li>
+            <li class="tab-item active" style="padding-top: 3.8rem"><a href="/recom">推荐公众号</a></li>
         </ul>
         <div class="container">
-            <form action="" method="post" id="reconForm">
+            <form action="" method="post" id="recomForm">
                 <div class="form-group">
                     <label class="form-label" for="MpName">推荐的公众号名称</label>
                     <input class="form-input" id="MpName" name="MpName" placeholder="公众号名称">
@@ -67,7 +61,7 @@
     </div>
 </footer>
 </body>
-<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
 <script>
    $("form").submit(function (e) {
        $("label[for='MpName']").removeClass("text-error");
