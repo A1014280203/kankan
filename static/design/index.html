@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/spectre.css">
+    <link rel="stylesheet" href="../css/spectre-exp.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>考研看看</title>
+</head>
+<style>
+    .bgreen {
+        background-color: #DFF0D8
+    }
+
+    .byellow {
+        background-color: #FCF8E3
+    }
+
+    .bblue {
+        background-color: #D9EDF7
+    }
+
+    .bred {
+        background-color: #F2DEDE
+    }
+</style>
+<body>
+<div>
+    <header class="navbar p-fixed px-2"
+            style="background-color: rgba(247,248,249,.9); z-index: 100; height: 3.5rem;width: 100%">
+        <section class="navbar-section">
+            <a href=".." class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
+        </section>
+        <section class="navbar-section">
+            <form action=".." method="get">
+                <div class="input-group input-inline">
+                    <input class="form-input" name="for-title" type="text" placeholder="文章标题">
+                    <button class="btn input-group-btn" type="submit"><i class="form-icon iconfont iconfont-search"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </header>
+
+    <div class="container py-2" id="main-content">
+        <ul class="tab tab-block">
+            <li class="tab-item active" style="padding-top: 3.8rem"><a href="index.html">最新文章</a></li>
+            <li class="tab-item" style="padding-top: 3.8rem"><a href="recon.html">推荐公众号</a></li>
+        </ul>
+        <div class="container">
+            <a class="card my-2 text-dark" href="#">
+                <div class="card-header h5">标题</div>
+                <div class="card-body">内容</div>
+                <div class="card-footer">
+                    <figure class="avatar avatar-sm">
+                        <img class="s-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM5Bp39F4nxFK6e8yMJ6Ju5SneIotBH1RptRJ8VBq8IZ4Q/0">
+                    </figure>
+                    <span style="font-size: smaller">政事堂2019</span>
+                </div>
+            </a>
+
+
+            <!--点击加载-->
+            <div class="flex-centered" id="main-end">
+            <button class="btn" id="load-more"  onclick="moreCards()"><i class="iconfont iconfont-down"></i> 点击加载更多</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="divider text-center" data-content="-"></div>
+<footer class="bg-gray">
+    <div class="container py-2">
+        <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-mail"></i> feiyu52@163.com</kbd></div>
+        <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-wechat"></i> smartseer</kbd></div>
+        <div class="divider"></div>
+        <div><kbd class="bg-gray text-dark">ICP备XXXXXXXX号</kbd></div>
+    </div>
+</footer>
+</body>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+    function moreCards() {
+        let followTime = $("#load-more").attr("data");
+        $.getJSON("http://127.0.0.1:8080/posts?followTime="+followTime, function(data) {
+            let cards = data["cards"];
+            let followTime = data["followTime"];
+            cards.forEach(function (card) {
+                let x = "";
+                let part = `<a class="card my-2 text-dark" href="DocURL"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure><span style="font-size: smaller">MpName</span></div></a>`;
+                for (x in card) {
+                    part = part.replace(x, card[x]);
+                }
+                $("#main-end").before(part)
+            });
+            $("#load-more").attr("data", followTime);
+        })
+    }
+</script>
+</html>
