@@ -27,7 +27,7 @@ func main() {
 	//app.SetDevelopmentMode()
 	//option := cors.NewConfig().UseDefault()
 
-	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(49.235.9.27:3306)/weread?charset=utf8")
+	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(localhost:3306)/weread?charset=utf8")
 	defer db.Close()
 
 	app.HttpServer.ServerFile("/static/*filepath", "./static/")
