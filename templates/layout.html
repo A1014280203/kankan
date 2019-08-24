@@ -1,74 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="stylesheet" href="../css/iconfont.css">
-    <link rel="stylesheet" href="../css/spectre.css">
-    <link rel="stylesheet" href="../css/spectre-exp.css">
+    <link rel="stylesheet" href="/static/css/spectre.css">
+    <link rel="stylesheet" href="/static/css/iconfont.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>考研看看</title>
 </head>
-<style>
-    .bgreen {
-        background-color: #DFF0D8
-    }
-
-    .byellow {
-        background-color: #FCF8E3
-    }
-
-    .bblue {
-        background-color: #D9EDF7
-    }
-
-    .bred {
-        background-color: #F2DEDE
-    }
-</style>
 <body>
 <div>
     <header class="navbar p-fixed px-2"
             style="background-color: rgba(247,248,249,.9); z-index: 100; height: 3.5rem;width: 100%">
         <section class="navbar-section">
-            <a href=".." class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
+            <a href="." class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
         </section>
         <section class="navbar-section">
-            <form action=".." method="get">
-                <div class="input-group input-inline">
-                    <input class="form-input" name="for-title" type="text" placeholder="文章标题">
-                    <button class="btn input-group-btn" type="submit"><i class="form-icon iconfont iconfont-search"></i>
-                    </button>
-                </div>
-            </form>
+            <mark style="font-size: smaller">- 要想走出平凡，<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就要先走入孤独。</mark>
         </section>
     </header>
     <div class="container py-2" id="content">
+        <!--选项卡-->
         <ul class="tab tab-block">
-            <li class="tab-item" style="padding-top: 3.8rem"><a href="index_d.html">最新文章</a></li>
-            <li class="tab-item" style="padding-top: 3.8rem"><a href="recom_d.html">推荐公众号</a></li>
+            <li class="tab-item" style="padding-top: 3.8rem"><a href="/">最新文章</a></li>
+            <li class="tab-item" style="padding-top: 3.8rem"><a href="/recom">推荐公众号</a></li>
         </ul>
+        <!--内容-->
         <div class="container">
-            <form action="" method="post" id="recomForm">
-                <div class="form-group">
-                    <label class="form-label" for="MpName">推荐的公众号名称</label>
-                    <input class="form-input" id="MpName" name="MpName" placeholder="公众号名称">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="ShareURL">公众号近期一篇文章的链接</label>
-                    <input class="form-input" id="ShareURL" name="ShareURL" placeholder="点击微信文章页面右上角可以找到">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="Reason">推荐理由</label>
-                    <input class="form-input" id="Reason" name="Reason" placeholder="随便说点什么">
-                </div>
-                <div class="input-group">
-                    <span style="width: 15%"></span>
-                    <input class="btn mt-2" type="submit" style="width: 30%" placeholder="提交">
-                    <span style="width: 10%"></span>
-                    <input class="btn mt-2" type="reset" style="width: 30%" placeholder="清空">
-                    <span style="width: 15%"></span>
-                </div>
-            </form>
+            {{ template "main" .}}
         </div>
     </div>
 </div>
@@ -78,11 +38,11 @@
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-mail"></i> feiyu52@163.com</kbd></div>
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-wechat"></i> smartseer</kbd></div>
         <div class="divider"></div>
-        <div><kbd class="bg-gray text-dark">ICP备XXXXXXXX号</kbd></div>
+        <div><kbd class="bg-gray text-dark"><a href="http://www.beian.miit.gov.cn/">鲁ICP备19041760号-1</a></kbd></div>
     </div>
 </footer>
 </body>
-<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
 <script>
     // set active class to <a>
     $(function(){

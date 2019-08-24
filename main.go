@@ -24,10 +24,10 @@ var db *sql.DB
 func main() {
 	app := dotweb.New()
 	//set debug mode
-	//app.SetDevelopmentMode()
+	app.SetDevelopmentMode()
 	//option := cors.NewConfig().UseDefault()
 
-	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(localhost:3306)/weread?charset=utf8")
+	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(49.235.9.27:3306)/weread?charset=utf8")
 	defer db.Close()
 
 	app.HttpServer.ServerFile("/static/*filepath", "./static/")
@@ -62,9 +62,9 @@ func IndexView(ctx dotweb.Context) error {
 		followTime = card.CreateTime
 		cards = append(cards, card)
 	}
-
 	ctx.ViewData().Set("cards", cards)
 	ctx.ViewData().Set("followTime", followTime)
+	ctx.AddView("layout.html")
 	err := ctx.View("index.html")
 	return err
 }
@@ -104,6 +104,7 @@ func MorePost(ctx dotweb.Context) error {
 }
 
 func recomView(ctx dotweb.Context) error {
+	ctx.AddView("layout.html")
 	return ctx.View("recom.html")
 }
 

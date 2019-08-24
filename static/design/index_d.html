@@ -43,9 +43,9 @@
         </section>
     </header>
 
-    <div class="container py-2" id="main-content">
+    <div class="container py-2" id="content">
         <ul class="tab tab-block">
-            <li class="tab-item active" style="padding-top: 3.8rem"><a href="index_d.html">最新文章</a></li>
+            <li class="tab-item" style="padding-top: 3.8rem"><a href="index_d.html">最新文章</a></li>
             <li class="tab-item" style="padding-top: 3.8rem"><a href="recom_d.html">推荐公众号</a></li>
         </ul>
 
@@ -83,14 +83,29 @@
 </body>
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script>
+    // set active class to <a>
+    $(function(){
+        var current = location.pathname;
+        $("#content ul.tab li a").each(function(){
+            var $this = $(this);
+            // if the current path is like this link, make it active
+            if($this.attr('href') === current){
+                console.log($this.attr('href'));
+                console.log(current);
+                $this.addClass('active');
+            }
+        })
+    });
+
+    // get followed cards
     function moreCards() {
-        let followTime = $("#load-more").attr("data");
-        $.getJSON("http://127.0.0.1:8080/posts?followTime="+followTime, function(data) {
+        let lastTime = $("#load-more").attr("data");
+        $.getJSON("/posts?followTime="+lastTime, function(data) {
             let cards = data["cards"];
             let followTime = data["followTime"];
             cards.forEach(function (card) {
                 let x = "";
-                let part = `<a class="card my-2 text-dark" href="DocURL"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure><span style="font-size: smaller">MpName</span></div></a>`;
+                let part = `<a class="card my-2" href="DocURL"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure><span style="font-size: smaller">MpName</span></div></a>`;
                 for (x in card) {
                     part = part.replace(x, card[x]);
                 }
@@ -99,5 +114,26 @@
             $("#load-more").attr("data", followTime);
         })
     }
+
+    // check form before post
+    $("form#recomForm").submit(function (e) {
+        $("label[for='MpName']").removeClass("text-error");
+        $("label[for='ShareURL']").removeClass("text-error");
+        if($("#MpName").val() === "") {
+            e.preventDefault();
+            $("label[for='MpName']").addClass("text-error");
+            alert("微信公众号名不能为空，请修改");
+        } else if($("#ShareURL").val() === "") {
+            e.preventDefault();
+            $("label[for='ShareURL']").addClass("text-error");
+            alert("微信文章链接不能为空，请修改");
+        } else if(!$("#ShareURL").val().startsWith("https://")) {
+            e.preventDefault();
+            $("label[for='ShareURL']").addClass("text-error");
+            alert("微信文章链接不正确，请修改");
+        } else {
+            alert("提交成功，审核员将尽快审核")
+        }
+    })
 </script>
 </html>
