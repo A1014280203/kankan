@@ -6,18 +6,23 @@
     <link rel="stylesheet" href="/static/css/iconfont.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>考研看看</title>
+    <title>考研看看——考研微信公众号信息聚合</title>
 </head>
 <body>
 <div>
     <header class="navbar p-fixed px-2"
             style="background-color: rgba(247,248,249,.9); z-index: 100; height: 3.5rem;width: 100%">
         <section class="navbar-section">
-            <a href="." class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
+            <a href="/" class="navbar-brand mr-2" style="font-size: larger;"><a class="btn">考研看看</a></a>
         </section>
         <section class="navbar-section">
-            <mark style="font-size: smaller">- 要想走出平凡，<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就要先走入孤独。</mark>
+            <form action="/mp" method="get" id="queryMpForm">
+                <div class="input-group input-inline">
+                    <input class="form-input" name="name" type="text" placeholder="公众号名称">
+                    <button class="btn input-group-btn" type="submit"><i class="form-icon iconfont iconfont-search"></i>
+                    </button>
+                </div>
+            </form>
         </section>
     </header>
     <div class="container py-2" id="content">
@@ -35,6 +40,7 @@
 <div class="divider text-center" data-content="-"></div>
 <footer class="bg-gray">
     <div class="container py-2">
+        <div><kbd class="bg-gray text-dark">欢迎提建议😋</kbd></div>
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-mail"></i> feiyu52@163.com</kbd></div>
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-wechat"></i> smartseer</kbd></div>
         <div class="divider"></div>
