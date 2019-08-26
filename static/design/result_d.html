@@ -42,43 +42,40 @@
             </form>
         </section>
     </header>
+
     <div class="container py-2" id="content">
         <ul class="tab tab-block">
             <li class="tab-item" style="padding-top: 3.8rem"><a href="index_d.html">最新文章</a></li>
             <li class="tab-item" style="padding-top: 3.8rem"><a href="recom_d.html">推荐公众号</a></li>
         </ul>
+
         <div class="container">
-            <form action="" method="post" id="recomForm">
-                <div class="form-group">
-                    <label class="form-label" for="MpName">推荐的公众号名称</label>
-                    <input class="form-input" id="MpName" name="MpName" placeholder="公众号名称">
+
+            <div class="toast toast-primary bg-primary">
+                以下是XXX公众号最近的20篇文章
+            </div>
+            <a class="card my-2 text-dark" href="#">
+                <div class="card-header h5">标题</div>
+                <div class="card-body">内容</div>
+                <div class="card-footer">
+                    <figure class="avatar avatar-sm">
+                        <img class="s-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM5Bp39F4nxFK6e8yMJ6Ju5SneIotBH1RptRJ8VBq8IZ4Q/0">
+                    </figure>
+                    <span style="font-size: smaller">政事堂2019</span>
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="ShareURL">公众号近期一篇文章的链接</label>
-                    <input class="form-input" id="ShareURL" name="ShareURL" placeholder="点击微信文章页面右上角可以找到">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="Reason">推荐理由</label>
-                    <input class="form-input" id="Reason" name="Reason" placeholder="随便说点什么">
-                </div>
-                <div class="input-group">
-                    <span style="width: 15%"></span>
-                    <input class="btn mt-2" type="submit" style="width: 30%" placeholder="提交">
-                    <span style="width: 10%"></span>
-                    <input class="btn mt-2" type="reset" style="width: 30%" placeholder="清空">
-                    <span style="width: 15%"></span>
-                </div>
-            </form>
+            </a>
         </div>
     </div>
 </div>
 <div class="divider text-center" data-content="-"></div>
 <footer class="bg-gray">
     <div class="container py-2">
+        <div><kbd class="bg-gray text-dark">欢迎提建议😋</kbd></div>
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-mail"></i> feiyu52@163.com</kbd></div>
         <div><kbd class="bg-gray text-dark"><i class="iconfont iconfont-wechat"></i> smartseer</kbd></div>
         <div class="divider"></div>
-        <div><kbd class="bg-gray text-dark">ICP备XXXXXXXX号</kbd></div>
+        <div><kbd class="bg-gray text-dark"><a href="http://www.beian.miit.gov.cn/">鲁ICP备19041760号-1</a></kbd></div>
     </div>
 </footer>
 </body>

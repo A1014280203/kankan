@@ -36,6 +36,7 @@ func main() {
 	app.HttpServer.GET("/recom", recomView)
 	app.HttpServer.POST("/recom", recomRecv)
 	app.HttpServer.GET("/posts", MorePost)
+	app.HttpServer.GET("/mp", searchMp)
 	app.HttpServer.GET("/h", func(context dotweb.Context) error {
 		return context.WriteString("Hello World")
 	})
@@ -49,7 +50,7 @@ func main() {
 func IndexView(ctx dotweb.Context) error {
 	/* set cards and last timestamp to html */
 	nowTimeStamp := uint32(time.Now().Unix())
-	rows := dbcQueryMp(nowTimeStamp)
+	rows := dbcQueryPost(nowTimeStamp)
 	defer rows.Close()
 	var cards []Card
 	var followTime uint32
@@ -78,7 +79,7 @@ func MorePost(ctx dotweb.Context) error {
 		panic(err.Error())
 	}
 
-	rows := dbcQueryMp(followTime)
+	rows := dbcQueryPost(followTime)
 	defer rows.Close()
 	var cards []Card
 	for rows.Next() {
@@ -118,7 +119,32 @@ func recomRecv(ctx dotweb.Context) error {
 	return recomView(ctx)
 }
 
-func dbcQueryMp(followTime uint32) *sql.Rows {
+func searchMp(ctx dotweb.Context) error {
+	MpName := ctx.QueryString("name")
+	nowTimeStamp := uint32(time.Now().Unix())
+
+	rows := dbcQueryPostByMp(nowTimeStamp, MpName)
+	defer rows.Close()
+	var cards []Card
+	for rows.Next() {
+		var card Card
+		err := rows.Scan(&card.Title, &card.Content, &card.DocURL, &card.MpName, &card.Avatar, &card.CreateTime)
+		if err != nil {
+			panic(err.Error())
+		}
+		cards = append(cards, card)
+	}
+	if len(cards) > 0 {
+		ctx.ViewData().Set("cards", cards)
+		ctx.ViewData().Set("MpName", MpName)
+		ctx.ViewData().Set("postCount", len(cards))
+	}
+	ctx.AddView("layout.html")
+	err := ctx.View("result.html")
+	return err
+}
+
+func dbcQueryPost(followTime uint32) *sql.Rows {
 	aliasCol := "title as Title, content as Content, doc_url as DocURL, mp_name as MpName, avatar as Avatar, createTime as CreateTime"
 	stat, err := db.Prepare(fmt.Sprintf("SELECT %s FROM post WHERE createTime < ? ORDER BY createTime DESC limit 10", aliasCol))
 	defer stat.Close()
@@ -143,6 +169,21 @@ func dbcInsertrecom(MpName, ShareURL, Reason, Ip string, nowTimeStamp uint32) {
 	if err != nil {
 		panic(err.Error())
 	}
+}
+
+func dbcQueryPostByMp(followTime uint32, MpName string) *sql.Rows {
+	aliasCol := "title as Title, content as Content, doc_url as DocURL, mp_name as MpName, avatar as Avatar, createTime as CreateTime"
+	stat, err := db.Prepare(fmt.Sprintf("SELECT %s FROM post WHERE createTime < ? and mp_name = ? ORDER BY createTime DESC limit 25", aliasCol))
+	defer stat.Close()
+	if err != nil {
+		panic(err.Error())
+	}
+	rows, err := stat.Query(followTime, MpName)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return rows
 }
 
 /*
