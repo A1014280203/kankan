@@ -17,6 +17,8 @@ type Card struct {
 	MpName     string
 	Avatar     string
 	CreateTime uint32
+	// not from db
+	TimeDiff string
 }
 
 var db *sql.DB
@@ -27,7 +29,7 @@ func main() {
 	//app.SetDevelopmentMode()
 	//option := cors.NewConfig().UseDefault()
 
-	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(localhost:3306)/weread?charset=utf8")
+	db, _ = sql.Open("mysql", "root:AbLvx5gOcUw02BG@tcp(49.235.9.27:3306)/weread?charset=utf8")
 	defer db.Close()
 
 	app.HttpServer.ServerFile("/static/*filepath", "./static/")
@@ -60,6 +62,7 @@ func IndexView(ctx dotweb.Context) error {
 		if err != nil {
 			panic(err.Error())
 		}
+		card.TimeDiff = timeDiff(int64(nowTimeStamp), int64(card.CreateTime))
 		followTime = card.CreateTime
 		cards = append(cards, card)
 	}
@@ -72,6 +75,7 @@ func IndexView(ctx dotweb.Context) error {
 
 func MorePost(ctx dotweb.Context) error {
 	/* return cards and last timestamp as JSON to user */
+	nowTimeStamp := uint32(time.Now().Unix())
 	timeString := ctx.QueryString("followTime")
 	followTime64, err := strconv.ParseUint(timeString, 10, 32)
 	followTime := uint32(followTime64)
@@ -88,6 +92,7 @@ func MorePost(ctx dotweb.Context) error {
 		if err != nil {
 			panic(err.Error())
 		}
+		card.TimeDiff = timeDiff(int64(nowTimeStamp), int64(card.CreateTime))
 		followTime = card.CreateTime
 		cards = append(cards, card)
 	}
@@ -132,6 +137,7 @@ func searchMp(ctx dotweb.Context) error {
 		if err != nil {
 			panic(err.Error())
 		}
+		card.TimeDiff = timeDiff(int64(nowTimeStamp), int64(card.CreateTime))
 		cards = append(cards, card)
 	}
 	if len(cards) > 0 {
@@ -184,6 +190,29 @@ func dbcQueryPostByMp(followTime uint32, MpName string) *sql.Rows {
 	}
 
 	return rows
+}
+
+func timeDiff(t1, t2 int64) string {
+	d1 := time.Unix(t1, 0)
+	d2 := time.Unix(t2, 0)
+	diff := d1.Sub(d2)
+	diffString := timeDiffToString(diff)
+	return diffString
+}
+
+func timeDiffToString(d time.Duration) string {
+	switch {
+	case d.Hours() >= 24*30:
+		return fmt.Sprintf("%d月之前", int(d.Hours()/(24*30)))
+	case d.Hours() >= 24:
+		return fmt.Sprintf("%d天之前", int(d.Hours()/24))
+	case d.Hours() >= 1:
+		return fmt.Sprintf("%d小时之前", int(d.Hours()))
+	case d.Minutes() >= 1:
+		return fmt.Sprintf("%d分钟之前", int(d.Minutes()))
+	default:
+		return fmt.Sprintf("%d秒之前", int(d.Seconds()))
+	}
 }
 
 /*
