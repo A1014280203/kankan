@@ -80,7 +80,7 @@
             let followTime = data["followTime"];
             cards.forEach(function (card) {
                 let x = "";
-                let part = `<a class="card my-2" href="DocURL"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure><span style="font-size: smaller">MpName</span></div></a>`;
+                let part = `<a class="card my-2" href="DocURL" target="_blank"><div class="card-header h5">Title</div><div class=card-body>Content</div><div class=card-footer><figure class="avatar avatar-sm"><img class=s-circle src="Avatar"></figure> <span style="font-size: smaller">MpName<time class="float-right text-gray">TimeDiff</time></span></div></a>`;
                 for (x in card) {
                     part = part.replace(x, card[x]);
                 }
