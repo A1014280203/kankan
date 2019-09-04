@@ -99,14 +99,14 @@
             e.preventDefault();
             $("label[for='MpName']").addClass("text-error");
             alert("微信公众号名不能为空，请修改");
-        } else if($("#ShareURL").val() === "") {
-            e.preventDefault();
-            $("label[for='ShareURL']").addClass("text-error");
-            alert("微信文章链接不能为空，请修改");
-        } else if(!$("#ShareURL").val().startsWith("https://")) {
-            e.preventDefault();
-            $("label[for='ShareURL']").addClass("text-error");
-            alert("微信文章链接不正确，请修改");
+        // } else if($("#ShareURL").val() === "") {
+        //     e.preventDefault();
+        //     $("label[for='ShareURL']").addClass("text-error");
+        //     alert("微信文章链接不能为空，请修改");
+        // } else if(!$("#ShareURL").val().startsWith("https://")) {
+        //     e.preventDefault();
+        //     $("label[for='ShareURL']").addClass("text-error");
+        //     alert("微信文章链接不正确，请修改");
         } else {
             alert("提交成功，审核员将尽快审核")
         }
